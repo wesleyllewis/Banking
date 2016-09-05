@@ -1,6 +1,5 @@
 package src.com.company;
 
-import java.util.DoubleSummaryStatistics;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -18,10 +17,8 @@ public class Teller {
         currentAccount.put("janelle", 100000.0);
         currentAccount.put("stevie", 346.0);
     }
-//need to figure out how to .put and .get from hashmaps
-    //then move on from there
 
-    public void welcomeScreen() throws Exception{
+    public void welcomeScreen() throws Exception {
         System.out.println("Welcome to the Money Machine");
         boolean a = true;
         String name = new String();
@@ -52,48 +49,33 @@ public class Teller {
         }
     }
 
-    public void optionScreen() throws Exception{
+    public void optionScreen() throws Exception {
         String choice = new String();
         System.out.println("What Would You Like to Do Today?" + "\n" + "Please Enter the Number Corresponding to Your Choice." + "\n" + "1) Check My Balance" + "\n" + "2) Withdraw Funds" + "\n" + "3) Remove My Account" + "\n" + "4) Cancel");
         choice = scanner.nextLine();
 
-        switch (choice){
-            case "1" :
+        switch (choice) {
+            case "1":
                 System.out.println(currentAccount);
                 checkBalance();
                 optionScreen();
                 break;
-            case "2" :
+            case "2":
                 withdrawFunds();
                 optionScreen();
                 break;
-            case "3" :
+            case "3":
                 removeAccount();
                 break;
-            case "4" :
+            case "4":
                 cancel();
                 break;
-            default :
+            default:
                 //stuff
                 break;
 
         }
-//        if (choice.equals("1")) {
-
-//        } else {
-//            if (choice.equals("2")) {
 //
-//            } else {
-//                if (choice.equals("3")) {
-//                    removeAccount();
-//
-//                }
-//            } else { if (choice.equals("4")){
-//                    cancel();
-//                }
-//            }
-//
-//        }
     }
 
     public void createAccount() throws Exception {
@@ -125,7 +107,7 @@ public class Teller {
         return numOption;
     }
 
-    public void checkBalance()  throws Exception{
+    public void checkBalance() throws Exception {
         System.out.println("Your current balance is " + currentAccount.get(name));
         optionScreen();
     }
@@ -144,7 +126,8 @@ public class Teller {
 
         }
     }
-    public void removeAccount() throws Exception{
+
+    public void removeAccount() throws Exception {
         System.out.println("Are You Sure? [y/n]");
         String remove = scanner.nextLine();
         if (remove.contains("y")) {
@@ -159,14 +142,4 @@ public class Teller {
 
     }
 }
-//    public Double validatePositiveDouble(String s) {
-//        Double d = new Double(0);
-//        try {
-//            d = Double.parseDouble(s);
-//        } catch (Exception e) {
-//            System.out.println("Please enter a valid number.");
-//        }
-//        return d;
-//    }
-//
-//}
+
