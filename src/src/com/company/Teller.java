@@ -8,30 +8,37 @@ public class Teller {
 
     public static String name;
     public static Scanner scanner = new Scanner(System.in);
+    public static Double deposit;
 
 
-    public static HashMap<String, Double> currentAccount = new HashMap<>();
+    HashMap<String, Double> currentAccount = new HashMap<>();
 
+    public Teller() {
+        currentAccount.put("wes", 1000.0);
+        currentAccount.put("janelle", 100000.0);
+        currentAccount.put("stevie", 346.0);
+    }
 //need to figure out how to .put and .get from hashmaps
     //then move on from there
 
-    public static void welcomeScreen(){
+    public void welcomeScreen() throws Exception{
         System.out.println("Welcome to the Money Machine");
         boolean a = true;
         String name = new String();
         while (a) {
             System.out.println("Please Enter Your Name");
+
             name = scanner.nextLine();
-            if ( ! name.isEmpty()) {
+            if (!name.isEmpty()) {
                 a = false;
-            }
-            else {
+            } else {
                 System.out.println("Name was blank. Please Enter a Valid Name.");
             }
         }
-        if(currentAccount.containsKey(name)) {
+        if (currentAccount.containsKey(name)) {
             System.out.println("Hello, " + name + "!");
             optionScreen();
+
         } else {
             System.out.println("Hello, " + name + ", Would you like to Open a New Account? [y/n]");
             String accountAnswer = new String();
@@ -44,45 +51,122 @@ public class Teller {
             }
         }
     }
-    public static void optionScreen(){
+
+    public void optionScreen() throws Exception{
         String choice = new String();
-        System.out.println("What Would You Like to Do Today?" + "\n" + "Please Enter the Number Corresponding to Your Choice." + "\n" + "1) Check My Balance" + "\n" + "2) Withdraw Funds" + "\n" + "3) Remove My Account" + "\n" + "4) Cancel") ;
+        System.out.println("What Would You Like to Do Today?" + "\n" + "Please Enter the Number Corresponding to Your Choice." + "\n" + "1) Check My Balance" + "\n" + "2) Withdraw Funds" + "\n" + "3) Remove My Account" + "\n" + "4) Cancel");
         choice = scanner.nextLine();
-        if (choice.equals("1")){
-            System.out.println("Your current balance is " + currentAccount.get(name));
-        } else {
-            if (choice.equals("2")){
-            }
+
+        switch (choice){
+            case "1" :
+                System.out.println(currentAccount);
+                checkBalance();
+                optionScreen();
+                break;
+            case "2" :
+                withdrawFunds();
+                optionScreen();
+                break;
+            case "3" :
+                removeAccount();
+                break;
+            case "4" :
+                cancel();
+                break;
+            default :
+                //stuff
+                break;
+
         }
+//        if (choice.equals("1")) {
+
+//        } else {
+//            if (choice.equals("2")) {
+//
+//            } else {
+//                if (choice.equals("3")) {
+//                    removeAccount();
+//
+//                }
+//            } else { if (choice.equals("4")){
+//                    cancel();
+//                }
+//            }
+//
+//        }
     }
 
-    public static void createAccount(String name){
+    public void createAccount() throws Exception {
         System.out.println("Thank You For Your Patronage!");
         Double deposit = new Double(0);
         while (deposit == 0) {
             System.out.println("Please Make a Deposit");
-            String depositString = new String();
-            depositString = scanner.nextLine();
-            deposit = validatePositiveDouble(depositString);
-            currentAccount.put("accountBalance", deposit);
+            //String depositString = new String();
+            // depositString = scanner.nextLine();
+            deposit = scanValidDouble();
             System.out.println("Thank You!");
-            currentAccount.put(name, deposit);
+            currentAccount.replace(name, deposit);
             optionScreen();
         }
     }
 
-    public static Double validatePositiveDouble(String s) {
-        Double d = new Double(0);
-        try {
-            d = Double.parseDouble(s);
-        } catch (Exception e) {
-            System.out.println("Please enter a valid number.");
+    public Double scanValidDouble() throws Exception {
+        Double numOption = new Double(0);
+        while (numOption <= 0) {
+            try {
+                numOption = Double.parseDouble(Main.scanner.nextLine());
+                if (numOption <= 0) {
+                    throw new Exception();
+                }
+            } catch (Exception wrongNumber) {
+                System.out.println("Please Enter a valid amount.");
+            }
         }
-        return d;
+        return numOption;
     }
-//    public static Double checkBalance() {
-//
-//    }
+
+    public void checkBalance()  throws Exception{
+        System.out.println("Your current balance is " + currentAccount.get(name));
+        optionScreen();
+    }
+
+    public void withdrawFunds() throws Exception {
+        System.out.println("How Much Would You Like To Withdraw?");
+        String withdraw = scanner.nextLine();
+        Double money = Double.parseDouble(withdraw);
+        if (money > currentAccount.get(name)) {
+            throw new Exception("Insufficient Funds Dude");
+
+        } else if (money <= currentAccount.get(name)) {
+            System.out.println("Please Take Your Ca$h, Homey!");
+            System.out.println(currentAccount.get(name) - money);
 
 
+        }
+    }
+    public void removeAccount() throws Exception{
+        System.out.println("Are You Sure? [y/n]");
+        String remove = scanner.nextLine();
+        if (remove.contains("y")) {
+            currentAccount.remove(name, deposit);
+        } else {
+            optionScreen();
+        }
+    }
+
+    public void cancel() {
+        System.exit(0);
+
+    }
 }
+//    public Double validatePositiveDouble(String s) {
+//        Double d = new Double(0);
+//        try {
+//            d = Double.parseDouble(s);
+//        } catch (Exception e) {
+//            System.out.println("Please enter a valid number.");
+//        }
+//        return d;
+//    }
+//
+//}

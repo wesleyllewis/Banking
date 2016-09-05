@@ -3,16 +3,18 @@ package src.com.company;
 import java.util.HashMap;
 import java.util.Scanner;
 
+
+
 public class Main {
     public static Scanner scanner = new Scanner(System.in);
+    static Teller teller = new Teller();
     public static void main(String[] args) throws Exception{
 
-        Teller.currentAccount.put("wes", 1000.0);
-        Teller.currentAccount.put("janelle", 100000.0);
-        Teller.currentAccount.put("stevie", 346.0); //how do i add and retrieve values from hashmap
+
+ //how do i add and retrieve values from hashmap
 
         //scanner.nextLine();
-        Teller.welcomeScreen();
+        teller.welcomeScreen();
 
 ////        Scanner scanner = new Scanner(System.in);
 ////        //Hashmap of customers
@@ -60,14 +62,7 @@ public class Main {
 //        }
 //        else if(choice.equals("2")){
 //            System.out.println("How Much Money You Need?");
-//            String withdraw = scanner.nextLine();
-//            int money = Integer.parseInt(withdraw);
-//            if(money > 100 ){
-//                throw new Exception("Insufficient Funds Dude");
-//            }
-//            else if(money <= 100){
-//                System.out.println("Please Take Your Ca$h, Homey!");
-//                scanner.nextLine();
+
 //            //how do i make this loop continuosly
 //            }
 //        }
